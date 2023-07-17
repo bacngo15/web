@@ -3,8 +3,6 @@
 ?>
 
 <?php
-$server = "LAPTOP-3P14SVIR";
-$conn = sqlsrv_connect($server, array('Database' => 'ClothingStoreDB'));
 
 $customer_id = isset($_GET['customer_id']) ? $_GET['customer_id'] : null;
 
@@ -52,28 +50,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 sqlsrv_close($conn);
 ?>
 
-<form method="GET">
-    <label for="customer_id">Nhập customer_id để xem thông tin khách hàng:</label>
-    <input type="text" name="customer_id" id="customer_id" required>
-    <input type="submit" value="Tìm khách hàng">
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cập Nhật Thông Tin Khách Hàng</title>
+    <link rel="stylesheet" href="suakhachhang.css">
+</head>
+<body>
+    <div class="container">
+        <form method="GET">
+            <label for="customer_id">Nhập customer_id để xem thông tin khách hàng:</label>
+            <input type="text" name="customer_id" id="customer_id" required>
+            <input type="submit" value="Tìm khách hàng">
+        </form>
 
-<?php if ($customer_id && $customer): ?>
-    <h2>Thông tin cập nhật khách hàng:</h2>
-    <form method="POST">
-        <label for="new_customer_name">Tên khách hàng mới:</label>
-        <input type="text" name="new_customer_name" id="new_customer_name" value="<?php echo $customer['customer_name']; ?>" required><br>
+        <?php if ($customer_id && $customer): ?>
+            <div class="content">
+                <h2>Thông tin cập nhật khách hàng:</h2>
+                <form method="POST">
+                    <label for="new_customer_name">Tên khách hàng mới:</label>
+                    <input type="text" name="new_customer_name" id="new_customer_name" value="<?php echo $customer['customer_name']; ?>" required><br>
 
-        <label for="new_email">Email mới:</label>
-        <input type="email" name="new_email" id="new_email" value="<?php echo $customer['email']; ?>" required><br>
+                    <label for="new_email">Email mới:</label>
+                    <input type="email" name="new_email" id="new_email" value="<?php echo $customer['email']; ?>" required><br>
 
-        <label for="new_address">Địa chỉ mới:</label>
-        <input type="text" name="new_address" id="new_address" value="<?php echo $customer['address']; ?>" required><br>
+                    <label for="new_address">Địa chỉ mới:</label>
+                    <input type="text" name="new_address" id="new_address" value="<?php echo $customer['address']; ?>" required><br>
 
-        <label for="new_phone">Số điện thoại mới:</label>
-        <input type="text" name="new_phone" id="new_phone" value="<?php echo $customer['phone']; ?>" required><br>
+                    <label for="new_phone">Số điện thoại mới:</label>
+                    <input type="text" name="new_phone" id="new_phone" value="<?php echo $customer['phone']; ?>" required><br>
 
-        <input type="submit" value="Cập nhật thông tin khách hàng">
-    </form>
+                    <input type="submit" value="Cập nhật thông tin khách hàng">
+                </form>
+            </div>
+        <?php endif; ?>
+    </div>
     <a href="listorder.php">Quay lại</a>
-<?php endif; ?>
+</body>
+</html>
